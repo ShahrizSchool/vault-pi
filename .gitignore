@@ -1,0 +1,5 @@
+.env
+*.key
+*.pem
+id_*
+vaultwarden-pi-build-plan.md
