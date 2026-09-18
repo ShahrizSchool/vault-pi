@@ -13,17 +13,13 @@ accounts.
 | Area | Decision | Reason |
 |---|---|---|
 | Hardware | Dedicated single-board computer | Smallest attack surface and blast radius |
-| Application | Vaultwarden, Bitwarden-compatible | Free organization sharing. Cryptography stays in the official clients |
+| Application | Vaultwarden | Free organization sharing. Cryptography stays in the official clients |
 | Remote access | Mesh VPN | No public exposure, no port forwarding, no reverse proxy |
 | Ingress control | Host firewall bound to the VPN interface | The local network cannot reach the service |
 | Database | SQLite with write-ahead logging | Single-writer access pattern. Single-file backup and restore |
 | Storage | Named container volume | Permissions inherited from the image. Scope-constrained |
 | Transport | HTTPS over the tailnet | Required by the clients. Complements the VPN rather than replacing it |
 | OS | Vendor Debian-based distribution, Lite, 64-bit, headless | Vendor-maintained kernel and firmware. Minimal package surface |
-
-The server stores only client-side-encrypted data. Master passphrase strength
-and KDF settings carry as much weight as the network controls, so I treat both
-as primary.
 
 ---
 
@@ -168,5 +164,3 @@ step-by-step instructions.
 Hostnames, IP addresses, usernames, MAC addresses, key material, tokens, and
 network topology. Examples use placeholders.
 
-A build log that publishes its own network map is a reconnaissance document. I
-treat the documentation as part of the attack surface.
