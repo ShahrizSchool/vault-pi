@@ -1,12 +1,8 @@
-# Self-Hosted Password Manager on Dedicated Hardware
+# Password Manager 
 
-Vaultwarden in a container on a dedicated single-board computer. Remote access
-runs over a private mesh VPN. Built for daily use on phone, desktop, and family
-accounts.
+A self-hosted password manager built on dedicated Raspberry Pi hardware and designed around network isolation. Vaultwarden runs in a Docker container and is reachable only through a private Tailscale network, with no exposure to the public internet or the local network. The build follows a phased approach covering container fundamentals, host hardening, isolation verification, deployment, encrypted backups, and multi-user rollout. Every security control is validated by testing rather than assumed from configuration. This repository documents the architecture decisions, the reasoning behind them, and the troubleshooting encountered during the build.
 
 **Status:** Phase 2 of 12, host hardening.
-
----
 
 ## Architecture
 
@@ -21,7 +17,6 @@ accounts.
 | Transport | HTTPS over the tailnet | Required by the clients. Complements the VPN rather than replacing it |
 | OS | Vendor Debian-based distribution, Lite, 64-bit, headless | Vendor-maintained kernel and firmware. Minimal package surface |
 
----
 
 ## Build plan
 
@@ -143,8 +138,6 @@ to match the build.
 - Test every change against the Phase 4 isolation criteria before closing it
 - Log every change with the date and the reason
 
----
-
 ## Repository structure
 
 ```
@@ -156,8 +149,6 @@ phases/
 
 Phase files record decisions and the reasoning behind them rather than
 step-by-step instructions.
-
----
 
 ## Omitted from this repository
 
