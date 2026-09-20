@@ -2,40 +2,26 @@
 
 A self-hosted password manager built on dedicated Raspberry Pi hardware and designed around network isolation. Vaultwarden runs in a Docker container and is reachable only through a private Tailscale network, with no exposure to the public internet or the local network. The build follows a phased approach covering container fundamentals, host hardening, isolation verification, deployment, encrypted backups, and multi-user rollout. Every security control is validated by testing rather than assumed from configuration. This repository documents the architecture decisions, the reasoning behind them, and the troubleshooting encountered during the build.
 
-## Architecture
-
-| Area | Decision | Reason |
-|---|---|---|
-| Hardware | Dedicated single-board computer | Smallest attack surface and blast radius |
-| Application | Vaultwarden | Free organization sharing. Cryptography stays in the official clients |
-| Remote access | Mesh VPN | No public exposure, no port forwarding, no reverse proxy |
-| Ingress control | Host firewall bound to the VPN interface | The local network cannot reach the service |
-| Database | SQLite with write-ahead logging | Single-writer access pattern. Single-file backup and restore |
-| Storage | Named container volume | Permissions inherited from the image. Scope-constrained |
-| Transport | HTTPS over the tailnet | Required by the clients. Complements the VPN rather than replacing it |
-| OS | Vendor Debian-based distribution, Lite, 64-bit, headless | Vendor-maintained kernel and firmware. Minimal package surface |
-
-
 ## Build plan
 
 The host is fully hardened and verified before I store a single real credential
 on it. I confirm every control by attempting the connection it should block,
 not by reading its configuration.
 
-### Phase 0 - Container fundamentals (complete)
+### Phase 0 - Container fundamentals
 
 Containers against virtualization, images and layers, Dockerfiles, Compose,
 networking, volumes, container security practices. TryHackMe rooms plus sandbox
 practice. Storage, database, and transport decisions locked.
 [Detail](phases/phase-00-container-fundamentals.md)
 
-### Phase 1 - Host provisioning (complete)
+### Phase 1 - Host provisioning
 
 Flashed Lite 64-bit headless. Key-only SSH from first boot. Non-default
 username. Full patch. DHCP reservation.
 [Detail](phases/phase-01-host-provisioning.md)
 
-### Phase 2 - Host hardening (in progress)
+### Phase 2 - Host hardening
 
 - ed25519 key-only SSH, password authentication disabled
 - Root login locked
